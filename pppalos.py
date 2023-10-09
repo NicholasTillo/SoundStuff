@@ -49,17 +49,6 @@ def start_listen():
 
 def end_listen():
     listener.stop()
-
-
-def load_listener():
-    for ele in root.winfo_children():
-        ele.destroy()
-    
-
-
-def load_setting():
-    for ele in root.winfo_children():
-        ele.destroy()
     
 
 def load_dir(key):
@@ -69,7 +58,7 @@ def load_dir(key):
     file1 = open("saves\savefile.txt", "r")  # append mode
     data = file1.readlines()
     counter = 0
-    print(data)
+
     for i in data:
         if i[0] == key:
             data[counter] = key+": "+tempdir[1] + "/"
@@ -82,14 +71,15 @@ def load_dir(key):
     load_into_dict()
 
 
+def clear_dir():
+    open("saves\savefile.txt", "w").close() 
+    
 def load_into_dict():
-    file1 = open("saves\savefile.txt", "r")  # append mode
+    file1 = open("saves\savefile.txt", "r") 
     data = file1.readlines()
     for i in data:
         entires_dict[i[0]] = create_list(str(i[3:]))
         
-    print(entires_dict)
-
 
 def starting_screen():
     tabControl = ttk.Notebook(root,name = "qoo")
@@ -104,9 +94,20 @@ def starting_screen():
     tabControl.pack(expand="1",fill="both")
     Title = ttk.Label(tab1,text="Title")
     Title.pack()
+
+
+
     return_button = ttk.Button(tab3,text = "Back To Menu", command= starting_screen)
     return_button.pack()
-    return_button = ttk.Button(tab3,text = "Button1File", command= lambda : load_dir("l"))
+    return_button = ttk.Button(tab3,text = "Button M File", command= lambda : load_dir("m"))
+    return_button.pack()
+    return_button = ttk.Button(tab3,text = "Button X File", command= lambda : load_dir("x"))
+    return_button.pack()
+    return_button = ttk.Button(tab3,text = "Button P File", command= lambda : load_dir("p"))
+    return_button.pack()
+    return_button = ttk.Button(tab3,text = "Button S File", command= lambda : load_dir("s"))
+    return_button.pack()
+    return_button = ttk.Button(tab3,text = "Clear ", command=clear_dir)
     return_button.pack()
 
 
